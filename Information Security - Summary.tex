@@ -826,7 +826,8 @@ The features of PGP/GPG are:
     \end{itemize}
     \item \textbf{Web of Trust}
     \begin{itemize}
-        \item The signer/sender of the information is known.
+        A decentralized trust model to establish the authenticity of the binding between a public key and its owner. \\
+        This is done by keeping a local trusted keys list. To confirm the authenticity of other users' public keys, we sign them with our private key. In this way, we establish trust in the public key. Therefore if someone trusts our public key, they also can trust all other public keys we have signed.
     \end{itemize}
 \end{itemize}
 
