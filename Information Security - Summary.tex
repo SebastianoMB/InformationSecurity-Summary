@@ -1,16 +1,15 @@
- 
-\documentclass{article}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{ragged2e}
+\usepackage{enumitem}
 
 \title{\textbf{Information Security: Principles and Practice\\ Mark Stamp}\\ Summary}
 \author{\textbf{\textit{Sebastiano Mirabella}}}
 
-\pagenumbering{roman}
 \begin{document}
-\date{}
+\pagenumbering{roman}
 \maketitle
 \tableofcontents
 \newpage
@@ -21,21 +20,21 @@
 \begin{itemize}
     \item \textbf{Confidentiality} : Preventing unauthorized \textit{reading} of information.\\
             Unauthorized access to:
-            \begin{itemize}
+            \begin{itemize}[noitemsep,nolistsep]
                 \item medical records
                 \item financial information
                 \item student progress data
             \end{itemize}
     \item \textbf{Integrity} : Preventing unauthorized \textit{writing/modification} of information.\\
             Comprising information stored in computers:
-            \begin{itemize}
+            \begin{itemize}[noitemsep,nolistsep]
                 \item legal records
                 \item tax information
                 \item financial data
             \end{itemize}
     \item \textbf{Availability} : The information/service must be \textit{available} when needed.\\
     Service disruption:
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item resource blocking/stealing
         \item slowed down computer or network
         \item downtime, costly repairs
@@ -50,11 +49,11 @@ The packet filter is used to prevent common attacks on the systems in the DMZ. T
 
 \subsection{How to speak crypto}
 \begin{itemize}
-    \item \textbf{Public key:} Key that is kept public and needed for encryption.
-    \item \textbf{Private key:} Key that is kept private and used for decryption.
-    \item \textbf{Symmetric key:} Key that is used for symmetric key crypto.
-    \item \textbf{Kerckhoff's principle:} While the key must be secret the encryption algorithm must be public.
-    \item \textbf{Definition of Secure:} A cryptosystem is \textit{secure} if the best-known attack requires as much work as an exhaustive key search (no shortcut attack is known).
+    \item \textbf{Public key}: Key that is kept public and needed for encryption.
+    \item \textbf{Private key}: Key that is kept private and used for decryption.
+    \item \textbf{Symmetric key}: Key that is used for symmetric key crypto.
+    \item \textbf{Kerckhoff's principle}: While the key must be secret the encryption algorithm must be public.
+    \item \textbf{Definition of Secure}: A cryptosystem is \textit{secure} if the best-known attack requires as much work as an exhaustive key search (no shortcut attack is known).
 \end{itemize}
 
 \subsection{Simple Substitution Cipher}
@@ -86,19 +85,19 @@ Each register has a different series of operations:
 
 \begin{itemize}
     \item Register X:
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item $t = x_{13} \oplus x_{16} \oplus x_{17} \oplus x_{18}$
         \item $x_i = x_{i-1}$ for $i = 18,17,16,...,1$
         \item $x_0 = t$
     \end{itemize}
     \item Register Y:
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item $t = y_{20} \oplus y_{21}$
         \item $y_i = y_{i-1}$ for $i = 21,20,19,...,1$
         \item $y_0 = t$
     \end{itemize}
     \item Register Z:
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item $t = z_{7} \oplus z_{20} \oplus z_{21} \oplus z_{22}$
         \item $z_i = z_{i-1}$ for $i = 22,21,20,...,1$
         \item $z_0 = t$
@@ -109,7 +108,7 @@ For each keystream bit generated the following takes place:
 \begin{itemize}
     \item Compute $m = maj(x_8,y_{10},z_{10})$ where if the majority is 0 then a 0 is returned else a 1.
     \item Each register will then step as follows:
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item if $x_8 = m$, then X steps
         \item if $y_{10} = m$, then Y steps
         \item if $z_{10} = m$, then Z steps
@@ -225,7 +224,7 @@ For the first block since we do not have any block for $C_{i-1}$, we use an IV o
 \begin{center}
     $P_0$ = D($C_0,K) \oplus $ IV
 \end{center}{}
-Since there is no need that the IV is secret, it is usually randomly generated at encryption time and sent as the first "ciphertext" block. When decrypting the IV must be handled appropriately.\\
+Since there is no need that the IV is secret, it is usually randomly generated at encryption time and sent as the first ``ciphertext'' block. When decrypting the IV must be handled appropriately.\\
 However there is a problem, that if there is a single-bit error it can cause two entire blocks to be garbled, and is a serious concern in high error-rate environments such as wireless communication.
 
 \subsubsection{Counter mode / CTR}
@@ -376,14 +375,14 @@ The Diffie-Hellman algorithm is not for encrypting or signing, but it is used to
 The security of DH lies on the computational difficulty of the \textit{discrete log} problem. The mathematical setup for DH is relatively simple. Let $p$ be a prime and let $g$ be a \textit{generator} which means that for any $x$ $\in \{1,2..p-1\}$ there exists an exponent $n$ such that $x$ = $g^n$ $mod$ $p$. The prime $p$ and the generator $g$ are public.
 
 \subsubsection{key exchange}
-\begin{itemize}
-\item A randomly selects a secret exponent "$a$"
-\item B randomly selects a secret exponent "$b$"
+\begin{enumerate}
+\item A randomly selects a secret exponent `$a$'
+\item B randomly selects a secret exponent `$b$'
 \item A computes $g^a$ $mod$ $p$ and sends the result to B
 \item B computes $g^b$ $mod$ $p$ and sends the result to A
 \item Then A computes $(g^b)^a$ $mod$ $p$ = $g^{ab}$ $mod$ $p$
 \item Then B computes $(g^a)^b$ $mod$ $p$ = $g^{ab}$ $mod$ $p$
-\end{itemize}{}
+\end{enumerate}
 In the end both A and B managed to establish a \textit{shared secret} which is $g^{ab}$ $mod$ $p$ (typically used as symmetric key)
 
 \subsubsection{A possible attack}
@@ -410,7 +409,7 @@ In ECC the sum between two points P1 and P2 is used to calculate a third point i
 \begin{center}
     P3 = P1 + P2
 \end{center}{}
-For the cryptography in ECC we have to use the \textit{"modulo p"} to ensure that we deal with a discrete set of points. Therefore in the generic ECC equation we would get:
+For the cryptography in ECC we have to use the \textit{``modulo p''} to ensure that we deal with a discrete set of points. Therefore in the generic ECC equation we would get:
 \begin{center}
     E: $y^2 = x^3 + ax + b$ $mod$ $p$
 \end{center}{}
@@ -459,8 +458,8 @@ Computation: At the end add $(n-1)$ 0 bits and shift a divisor of $n$ bits over 
     \item \textbf{SHA}: Secure Hash Algorithm generates 160-bit output
     \item A hash function is \textbf{secure} if no collisions have been found
 \end{itemize}
-Tiger hash was designed to be "\textit{fast and strong}" and for optimal performance on 64-bit processors, and it can serve as replacement for MD5 and SHA-1. Its output is of 192 bits.\\\\
-Tiger hash employs four S-boxes, each of which maps 8 bits to 64 bits. It uses a "key schedule" algorithm  which since there is no key, is applied to the input block.\\
+Tiger hash was designed to be ``\textit{fast and strong}'' and for optimal performance on 64-bit processors, and it can serve as replacement for MD5 and SHA-1. Its output is of 192 bits.\\\\
+Tiger hash employs four S-boxes, each of which maps 8 bits to 64 bits. It uses a ``key schedule'' algorithm  which since there is no key, is applied to the input block.\\
 Input $X$ is padded to a multiple of 512 bits and written as
 $$X = (X_0, X_1,...,X_{n-1})$$
 Where each $X_i$ is 512 bits. The tiger algorithm employs one \textit{outer round} for each $X_i$. Each of $a$, $b$, $c$ is 64 bits and the initial values of ($a$, $b$, $c$) for the first round are, in hex:
@@ -531,13 +530,13 @@ This approach thoroughly mixes the key into the resulting hash. An HMAC can be u
 Involves hiding information in media such as image files, audio data or even software. An example is hiding information in low order bits of an html-file's color attribute.
 
 \subsubsection{Watermarks}
-Used to insert an "invisible" identifier in the data.\\
+Used to insert an ``invisible'' identifier in the data.\\
 They can be categorized in:
 \begin{itemize}
-    \item \textit{Invisible}: Watermarks that are not supposed to be perceptible in the media.
-    \item \textit{Visible}: Watermarks that are meant to be observed, such as a stamp of TOP SECRET on a document.
-    \item \textit{Robust}: Watermarks that are designed to remain readable even if they are attacked.
-    \item \textit{Fragile}: Watermarks that are supposed to be destroyed or damaged if any tampering occurs.
+    \item \textbf{Invisible}: Watermarks that are not supposed to be perceptible in the media.
+    \item \textbf{Visible}: Watermarks that are meant to be observed, such as a stamp of TOP SECRET on a document.
+    \item \textbf{Robust}: Watermarks that are designed to remain readable even if they are attacked.
+    \item \textbf{Fragile}: Watermarks that are supposed to be destroyed or damaged if any tampering occurs.
 \end{itemize}
 Invisible watermarking scheme could be used to hide information in a photograph, in such a way that if the photo were damaged it would be possible to reconstruct the entire image from a small surviving piece of the original.\\
 It is also possible to insert a robust invisible mark in digital music to detect piracy. So when the pirated music appears on the Internet, it is possible to trace it back to its source.\\\\
@@ -548,7 +547,7 @@ Watermarking schemes are weak to \textit{collusion attacks}. Meaning that the or
 A \textbf{policy} is written according to a \textbf{model} using a \textbf{language}.
 Types of Access Control:
 \begin{itemize}
-    \item \textbf{Discretionary Access Control} (DAC): Owners can "pass" permissions, e.g. (UNIX File system).
+    \item \textbf{Discretionary Access Control} (DAC): Owners can ``pass'' permissions, e.g. (UNIX File system).
     \item \textbf{Mandatory Access Control} (MAC): Central authority imposes rules, e.g. (Military systems).
     \item \textbf{Role-Based Access Control} (RBAC): Users are assigned roles and roles are assigned specific permissions.
     \item \textbf{Attribute-Based Access Control} (ABAC): Rules are specified by using attributes. Attributes can describe users, resources, actions and the environment/s in which the action happens.
@@ -557,7 +556,7 @@ Types of Access Control:
 \subsection{Security Principles}
 \begin{enumerate}
     \item Least Privilege: Allow only what is needed.
-    \item Fail-safe defaults: Default permissions is "deny".
+    \item Fail-safe defaults: Default permissions is ``deny''.
     \item Economy of Mechanism: As simple as possible.
     \item Complete Mediation: Every access should be checked.
     \item Open Design: Secrecy (of design/implementation) should not be the source of security.
@@ -580,15 +579,15 @@ Flexible authorization tokens with the following features:
 \begin{itemize}
     \item \textbf{Delegation} with attenuation and third-party restrictions.
     \item \textbf{Attenuation} on how, when and where the tokens can be exercised.
-    \item \textbf{Proof-carrying:} The restrictions are constructed using chained HMAC.
-    \item \textbf{Third-party restrictions:} Restrictions can be enforced by third parties.
+    \item \textbf{Proof-carrying}: The restrictions are constructed using chained HMAC.
+    \item \textbf{Third-party restrictions}: Restrictions can be enforced by third parties.
 \end{itemize}
 
 \subsection{Authentication}
 Authentication: Are you who you say you are?\\
 Authorization: Are you allowed to do that?
 \subsubsection{Authentication methods}
-A human can be authenticated into a machine based on the following "somethings".
+A human can be authenticated into a machine based on the following ``somethings''.
 \begin{itemize}
     \item Something you know: such as a password.
     \item Something you have: such as an ATM card or a smartcard.
@@ -600,7 +599,7 @@ An ideal password is something that you know, that a computer can verify that yo
 To protect passwords in databases from being found out by an attacker, passwords are appended with a \textit{salt} before hashing. A \textit{salt} is a non-secret value that causes identical passwords to hash to different values. By using this method, the work to guess a password with N users increases by a factor of N.
 
 \subsubsection{Two-Factor Authentication}
-Authentication methods that require two out of three "somethings" is know as \textit{two-factor authentication}.
+Authentication methods that require two out of three ``somethings'' is know as \textit{two-factor authentication}.
 
 \subsection{Authorization}
 Authorization is a security mechanism used to determine user/client privileges or access levels related to system resources, including computer programs, files, services, data and application features. Authorization is normally preceded by authentication for user identity verification. System administrators (SA) are typically assigned permission levels covering all system and user resources.\\
@@ -626,7 +625,7 @@ Purpose is to capture the minimal requirements, with respect to confidentiality,
 There is also a tranquility property which was added later on to fortify BLP
 \begin{itemize}
     \item\textbf{Strong tranquility property}: Security labels can never change.
-    \item \textbf{Weak tranquility property}: Security label can change, provided such a change does not violate an "established security policy."
+    \item \textbf{Weak tranquility property}: Security label can change, provided such a change does not violate an ``established security policy.''
 \end{itemize}
 
 \subsubsection{Biba's Model}
@@ -637,7 +636,7 @@ Let I(O) denote the integrity of object O and I(S) integrity of object S. Then B
 \end{itemize}
 It is a restrictive model, since it prevents objects S from ever viewing an object at a lower integrity level. It is also possible to replace Biba's model with the following:
 \begin{center}
-    \textbf{Low Water Mark Policy:} If subject S reads object O, then I(S) = min(I(S), I(O)).
+    \textbf{Low Water Mark Policy}: If subject S reads object O, then I(S) = min(I(S), I(O)).
 \end{center}
 Under this principle, subject S can read anything under the condition that the integrity of subject S is downgraded after accessing an object at a lower level.\\
 The fundamental difference between the two is that BLP is for confidentiality, which implies a high water mark principle, while Biba is for integrity, which implies a low water mark principle.
@@ -653,8 +652,8 @@ In networking, protocols are the rules followed in the networked communication s
 
 \subsection{Authentication Protocols}
 \begin{itemize}
-    \item \textbf{Mutual authentication:} The two parties must prove their identities to each other.
-    \item \textbf{Session key:} Symmetric key used to protect confidentiality and/or integrity of the current session, provided the authentication succeeds.
+    \item \textbf{Mutual authentication}: The two parties must prove their identities to each other.
+    \item \textbf{Session key}: Symmetric key used to protect confidentiality and/or integrity of the current session, provided the authentication succeeds.
 \end{itemize}
 To prevent replay attacks during authentication, the server can incorporate a \textit{nonce} in the challenge. The challenge will be used to compute the appropriate response, and therefore the server is able to distinguish the current response from a replay of a previous response.
 
@@ -702,14 +701,14 @@ In the case that the browser checks the signature on the certificate, and the br
 \subsection{Kerberos}
 Kerberos is a popular authentication tool that uses symmetric key cryptography and timestamps. It uses a \textit{Trusted Third Party} (TTP) which shares the keys to the users. Therefore the Kerberos TTP is known as the \textbf{key distribution centre}, or KDC.\\
 The master key $K_{KDC}$ is used to allow the KDC to remain stateless thus avoiding DoS attacks.\\
-The KDC issues various "tickets" which contain information and key required to access the network's resources. It issues an important ticket known as the \textbf{Ticket-granting ticket}, or TGT, which is used to obtain ordinary tickets.\\
+The KDC issues various ``tickets'' which contain information and key required to access the network's resources. It issues an important ticket known as the \textbf{Ticket-granting ticket}, or TGT, which is used to obtain ordinary tickets.\\
 TGT = \{session key, UserID, expiration time\}\\
-\textbf{Kerberized Login:}
+\textbf{Kerberized Login}:
 \begin{itemize}
     \item The key $K$ is derived as $K = h(User's password)$
     \item The KDC creates session key $S$
     \item User's computer uses $K$ to obtain $S$ and the TGT; then user's computer forgets $K$
-    \item TGT = E("User",$S$, $K_{KDC}$)
+    \item TGT = E(``User'',$S$, $K_{KDC}$)
 \end{itemize}{}
 The timestamp is used to allow authentication in time and avoid replay attacks.
 \begin{figure}[H]
@@ -720,7 +719,7 @@ The timestamp is used to allow authentication in time and avoid replay attacks.
 One advantage of Kerberized login is that the entire security process is transparent to the user. The disadvantage is that is relies on the security of the KDC.
 
 \subsubsection{Kerberos Ticket}
-Once the user's computer receives its TGT, it can use the TGT to request access to network resources. To avoid replay attacks the \textit{authenticator} is used which is an encrypted timestamp. After the KDC receives and verifies the authenticator, it responds with a "ticket to server", which can then be used to communicate securely with the server.\\
+Once the user's computer receives its TGT, it can use the TGT to request access to network resources. To avoid replay attacks the \textit{authenticator} is used which is an encrypted timestamp. After the KDC receives and verifies the authenticator, it responds with a ``ticket to server'', which can then be used to communicate securely with the server.\\
 Since timestamps are used for replay prevention, Kerberos minimizes the number of messages that must be sent. The main drawback is that time becomes a security-critical parameter.
 
 \subsubsection{Kerberos Security}
@@ -729,7 +728,7 @@ To prevent replay attacks Kerberos relies on the timestamps that appear in the a
 
 \newpage
 \section{Privacy}
-\textit{“\textbf{Privacy forms the basis of our freedom. You have to have moments of reserve, reflection, intimacy, and solitude}"}
+\textit{``\textbf{Privacy forms the basis of our freedom. You have to have moments of reserve, reflection, intimacy, and solitude}''}
 
 \subsection{K-anonymity}
 Given a dataset with private info about individuals, k-anonymity requires that each individual cannot be distinguished from k-1 individuals of the same dataset.\\
@@ -758,14 +757,14 @@ E = Equivalence class\\
 s = Sensitive attribute value from domain S\\
 p(E,s) = Fraction of records in E with value s\\
 We want Entropy(E) $\leq$ log(l)\\\\
-\textbf{Recursive (c,l)-diversity:} Ensures that the most common value does not appear too often while less common values are ensured to not appear too infrequently.
+\textbf{Recursive (c,l)-diversity}: Ensures that the most common value does not appear too often while less common values are ensured to not appear too infrequently.
 
 \subsection{T-closeness}
 Distribution of sensitive attribute in each equivalence group should be 't' close to the original database.
 
 \subsection{Differential Privacy}
 \begin{center}
-    \textit{"The risk associated with privacy violation of an individual should not substantially increase as a result of participating in a statistical database"}
+    \textit{``The risk associated with privacy violation of an individual should not substantially increase as a result of participating in a statistical database''}
 \end{center}
 There exists an algorithm K such that for all pairs of very similar data sets D and D' it will behave approximately the same on both data sets: if K(D) = X and K(D') = Y then X and Y should be indistinguishable.\\
 K is really about the distribution of values in its range K(D) for the data sets it is applied.\\
@@ -785,13 +784,13 @@ The concept of location privacy can be defined as the right of individuals to de
 To ensure location privacy different methods exists: 
 \begin{itemize}
     \item \textit{Location obfuscation} can be used in which the user's location is hidden within a region. This can be achieved by using several obfuscation operators:
-\begin{itemize}
-    \item \textbf{Enlarge:} According to some metric, increase radius.
-    \item \textbf{Reduce:} According to some metric, reduce the radius.
-    \item \textbf{Shift:} Change the exact location info.
+\begin{itemize}[noitemsep,nolistsep]
+    \item \textbf{Enlarge}: According to some metric, increase radius.
+    \item \textbf{Reduce}: According to some metric, reduce the radius.
+    \item \textbf{Shift}: Change the exact location info.
 \end{itemize}
-\item \textit{Spatio-temporal:} instead of (or in addition to) pure location obfuscation, a (time) delay can be introduced to location information.
-\item \textit{Data-dependent obfuscation:} Calculate region by considering k-l nearest subject locations, generate a region that contains k subjects.
+\item \textit{Spatio-temporal}: instead of (or in addition to) pure location obfuscation, a (time) delay can be introduced to location information.
+\item \textit{Data-dependent obfuscation}: Calculate region by considering k-l nearest subject locations, generate a region that contains k subjects.
 \end{itemize} 
 
 \newpage
@@ -800,7 +799,7 @@ To ensure location privacy different methods exists:
     \textit{Published by Phil Zimmermann}
 \end{center}
 
-The PGP/GPG public key infrastructure (PKI) is as follows:
+\noindent The PGP/GPG public key infrastructure (PKI) is as follows:
 \begin{itemize}
     \item Publicly (widely) known public key.
     \item Privately kept private (or secret) key.
@@ -812,20 +811,20 @@ The PGP/GPG public key infrastructure (PKI) is as follows:
 The features of PGP/GPG are:
 \begin{itemize}
     \item \textbf{Confidentiality}
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item Encrypt your own sensitive data.
         \item Only the intended recipient can read the information.
     \end{itemize}
     \item \textbf{Integrity}
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item Digital signatures are invalid when the document is modified.
     \end{itemize}
     \item \textbf{Non-repudiation}
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         \item Verify the authenticity of the sender.
     \end{itemize}
     \item \textbf{Web of Trust}
-    \begin{itemize}
+    \begin{itemize}[noitemsep,nolistsep]
         A decentralized trust model to establish the authenticity of the binding between a public key and its owner. \\
         This is done by keeping a local trusted keys list. To confirm the authenticity of other users' public keys, we sign them with our private key. In this way, we establish trust in the public key. Therefore if someone trusts our public key, they also can trust all other public keys we have signed.
     \end{itemize}
